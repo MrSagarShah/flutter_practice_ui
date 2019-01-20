@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice_ui/profile.dart';
 
 void main() => runApp(new MyApp());
 
@@ -10,14 +11,13 @@ class MyApp extends StatelessWidget {
       theme: new ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: new MyHomePage(title: 'Flutter Demo Home Page'),
+      home: new MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+  MyHomePage() : super();
 
   @override
   _MyHomePageState createState() => new _MyHomePageState();
@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
     admin = new Person();
     admin.name = "Donna";
     admin.role = "Admin";
-    admin.img = "male.png";
+    admin.img = "female.png";
     admin.dept = "Operation";
     admins.add(admin);
 
@@ -74,16 +74,31 @@ class _MyHomePageState extends State<MyHomePage> {
           padding: const EdgeInsets.all(12.0),
           child: Row(
             children: <Widget>[
-              new Container(
-                width: 70.0,
-                height: 70.0,
-                decoration: new BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: new DecorationImage(
-                    fit: BoxFit.fitHeight,
-                    image: new AssetImage("assets/${data.img}"),
+              Stack(
+                alignment: Alignment.topRight,
+                children: <Widget>[
+                  new Container(
+                    width: 70.0,
+                    height: 70.0,
+                    decoration: new BoxDecoration(
+                      color: Colors.grey,
+                      shape: BoxShape.circle,
+                      image: new DecorationImage(
+                        fit: BoxFit.fitHeight,
+                        image: new AssetImage("assets/${data.img}"),
+                      ),
+                    ),
                   ),
-                ),
+                  Container(
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle, color: Colors.white),
+                    child: Icon(
+                      Icons.check_circle,
+                      size: 18.0,
+                      color: Colors.green,
+                    ),
+                  ),
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 16.0),
@@ -119,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Column _getAdminList() {
+  Column _getAdminList(BuildContext context) {
     return Column(
       children: <Widget>[
         Row(
@@ -139,14 +154,24 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         Column(
           children: admins.map((data) {
-            return _getPersonCard(data);
+            return GestureDetector(
+              child: _getPersonCard(data),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Profile(title: data),
+                  ),
+                );
+              },
+            );
           }).toList(),
         )
       ],
     );
   }
 
-  Column _getEmployeeList() {
+  Column _getEmployeeList(BuildContext context) {
     return Column(
       children: <Widget>[
         Row(
@@ -266,8 +291,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              _getAdminList(),
-              _getEmployeeList(),
+              _getAdminList(context),
+              _getEmployeeList(context),
             ],
           ),
         ),

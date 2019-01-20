@@ -8,7 +8,38 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
+    return Scaffold(
+      appBar: new AppBar(
+        backgroundColor: Colors.white,
+        title: Row(
+          children: <Widget>[
+            Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+            Expanded(
+                child: Center(
+              child: Text(
+                "Team",
+                style: TextStyle(color: Colors.black),
+              ),
+            )),
+            Icon(
+              Icons.add_circle,
+              color: Colors.deepPurple,
+              size: 35.0,
+            )
+          ],
+        ),
+      ),
+      body: SafeArea(
+          child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[],
+          )
+        ],
+      )),
+    );
   }
 }
