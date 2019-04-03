@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:practice_ui/models.dart';
 import 'package:practice_ui/profile.dart';
 
 void main() => runApp(new MyApp());
@@ -160,7 +161,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Profile(title: data),
+                    builder: (context) => Profile(title: data,),
                   ),
                 );
               },
@@ -299,11 +300,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-}
-
-class Person {
-  String role;
-  String name;
-  String img;
-  String dept;
 }
